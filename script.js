@@ -39,53 +39,156 @@ if (themeToggle) {
 
 
 /* ═══════════════════════════════════════════════
-   2. NAVBAR & SCROLL DYNAMICS
+   2. NAVBAR & DYNAMIC SCROLL DYNAMICS
 ═══════════════════════════════════════════════ */
 const navbar = document.getElementById('navbar');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section[id]');
 const progressBar = document.getElementById('scroll-progress-bar');
+const progressGlow = document.getElementById('scroll-progress-glow');
 const backToTopBtn = document.getElementById('back-to-top');
+const scrollProgressRing = document.getElementById('scroll-progress-ring');
+
+// Cyber Scroll Telemetry HUD Elements
+const hudEl = document.getElementById('cyber-scroll-hud');
+const hudArrow = document.getElementById('hud-scroll-arrow');
+const hudArrowBox = document.getElementById('hud-arrow-box');
+const hudDir = document.getElementById('hud-scroll-dir');
+const hudVel = document.getElementById('hud-scroll-vel');
+const hudZone = document.getElementById('hud-scroll-zone');
+const hudPct = document.getElementById('hud-scroll-pct');
+const hudMeterFill = document.getElementById('hud-meter-fill');
+
+// Quick-Nav Radar Dots
+const radarDots = document.querySelectorAll('.radar-dot');
 
 let lastScrollY = window.scrollY;
 let isScrollTicking = false;
+let hudTimer = null;
+let scrollStopTimer = null;
 
 function onScroll() {
   const currentScrollY = window.scrollY;
-  const isScrollingDown = currentScrollY > lastScrollY;
+  const deltaY = currentScrollY - lastScrollY;
+  const isScrollingDown = deltaY > 0;
+  const absDelta = Math.abs(deltaY);
+  const scrollVelocity = Math.min(100, absDelta);
 
-  // 1. Top Scroll Progress Bar
-  if (progressBar) {
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
-    progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  // 1. Update CSS Variables for Grid Parallax & Velocity
+  document.documentElement.style.setProperty('--scroll-y', `${currentScrollY}px`);
+  document.documentElement.style.setProperty('--scroll-velocity', `${scrollVelocity}px`);
+
+  // 2. Track Direction Classes on Body
+  if (absDelta > 2) {
+    if (isScrollingDown) {
+      document.body.classList.add('scrolling-down');
+      document.body.classList.remove('scrolling-up');
+    } else {
+      document.body.classList.add('scrolling-up');
+      document.body.classList.remove('scrolling-down');
+    }
   }
 
-  // 2. Navbar style & auto-hide on fast scroll down, reveal on scroll up
+  // Velocity boost class
+  document.body.classList.toggle('is-scrolling-fast', scrollVelocity > 35);
+  clearTimeout(scrollStopTimer);
+  scrollStopTimer = setTimeout(() => {
+    document.body.classList.remove('is-scrolling-fast', 'scrolling-down', 'scrolling-up');
+  }, 220);
+
+  // 3. Top Scroll Progress Bar & Glowing Comet Head
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progressPct = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
+  const clampedProgress = Math.min(100, Math.max(0, progressPct));
+
+  if (progressBar) {
+    progressBar.style.width = `${clampedProgress}%`;
+  }
+  if (progressGlow) {
+    progressGlow.style.left = `${clampedProgress}%`;
+  }
+
+  // 4. Circular Back-to-Top Button with Real-Time SVG Progress Ring
+  if (scrollProgressRing) {
+    const circumference = 119.38; // 2 * Math.PI * 19
+    const offset = circumference - (clampedProgress / 100) * circumference;
+    scrollProgressRing.style.strokeDashoffset = `${offset}px`;
+  }
+  if (backToTopBtn) {
+    if (currentScrollY > 220) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  }
+
+  // 5. Navbar Style & Auto-Hide on Fast Scroll Down, Reveal on Scroll Up
   if (navbar) {
     navbar.classList.toggle('scrolled', currentScrollY > 30);
-    if (isScrollingDown && currentScrollY > 220) {
+    if (isScrollingDown && currentScrollY > 220 && scrollVelocity > 10) {
       navbar.classList.add('nav-hidden');
     } else {
       navbar.classList.remove('nav-hidden');
     }
   }
 
-  // 3. Back-to-top button
-  if (backToTopBtn) {
-    backToTopBtn.style.opacity = currentScrollY > 400 ? '1' : '0';
-    backToTopBtn.style.pointerEvents = currentScrollY > 400 ? 'auto' : 'none';
-  }
-
-  // 4. Active Navigation Link
-  let currentSection = '';
+  // 6. Active Section Detection
+  let currentSection = 'hero';
   sections.forEach(section => {
-    const top = section.offsetTop - 130;
+    const top = section.offsetTop - 180;
     if (currentScrollY >= top) currentSection = section.id;
   });
+
   navLinks.forEach(link => {
-    const href = link.getAttribute('href').slice(1);
-    link.classList.toggle('active', href === currentSection);
+    const href = link.getAttribute('href');
+    if (href) {
+      const targetId = href.slice(1);
+      link.classList.toggle('active', targetId === currentSection);
+    }
+  });
+
+  // 7. Quick-Nav Radar Active Dot
+  radarDots.forEach(dot => {
+    const sec = dot.getAttribute('data-section');
+    dot.classList.toggle('active', sec === currentSection);
+  });
+
+  // 8. Cyber Scroll Telemetry HUD Updates
+  if (hudPct) hudPct.textContent = `${String(Math.round(clampedProgress)).padStart(2, '0')}%`;
+  if (hudMeterFill) hudMeterFill.style.width = `${clampedProgress}%`;
+  if (hudZone) hudZone.textContent = `// ${currentSection.toUpperCase()}_NODE`;
+
+  if (absDelta > 2) {
+    if (hudDir) hudDir.textContent = isScrollingDown ? 'SCROLLING DOWN ↓' : 'SCROLLING UP ↑';
+    if (hudArrow) hudArrow.textContent = isScrollingDown ? '↓' : '↑';
+    if (hudArrowBox) {
+      hudArrowBox.classList.toggle('arrow-down', isScrollingDown);
+      hudArrowBox.classList.toggle('arrow-up', !isScrollingDown);
+    }
+    if (hudVel) {
+      hudVel.textContent = scrollVelocity > 35 ? 'WARP ⚡' : 'CRUISE';
+      hudVel.classList.toggle('velocity-high', scrollVelocity > 35);
+    }
+    if (hudEl) {
+      hudEl.classList.add('active');
+      clearTimeout(hudTimer);
+      hudTimer = setTimeout(() => {
+        hudEl.classList.remove('active');
+        if (hudDir) hudDir.textContent = 'READY // STANDBY';
+        if (hudVel) hudVel.textContent = 'STEADY';
+      }, 1500);
+    }
+  }
+
+  // 9. Floating Parallax Cyber Runes
+  const parallaxRunes = document.querySelectorAll('[data-parallax-speed]');
+  parallaxRunes.forEach(rune => {
+    const speed = parseFloat(rune.getAttribute('data-parallax-speed')) || 0.15;
+    const parentSection = rune.closest('section');
+    const parentTop = parentSection ? parentSection.offsetTop : 0;
+    const relScroll = currentScrollY - parentTop;
+    const translateY = relScroll * speed;
+    rune.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
   });
 
   lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
@@ -99,6 +202,26 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 onScroll();
+
+// Back-to-Top Button Smooth Action
+if (backToTopBtn) {
+  backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// Quick-Nav Radar Dot Click Smooth Action
+radarDots.forEach(dot => {
+  dot.addEventListener('click', (e) => {
+    e.preventDefault();
+    const secId = dot.getAttribute('data-section');
+    const targetSection = document.getElementById(secId);
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
 
 
 /* ═══════════════════════════════════════════════
@@ -163,10 +286,21 @@ function setupScrollReveal() {
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
-  document.querySelectorAll('.reveal').forEach(el => {
+  document.querySelectorAll('.reveal').forEach((el) => {
+    // If not manually set, calculate a staggered index based on its siblings with .reveal
+    if (!el.style.getPropertyValue('--item-idx')) {
+      const parent = el.parentElement;
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(child => child.classList.contains('reveal'));
+        const idx = siblings.indexOf(el);
+        if (idx !== -1) {
+          el.style.setProperty('--item-idx', idx);
+        }
+      }
+    }
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       el.classList.add('visible');
@@ -625,7 +759,7 @@ function renderPortfolioContent(data) {
   const projectsGrid = document.getElementById('projects-grid');
   if (projectsGrid && data.projects && data.projects.length) {
     projectsGrid.innerHTML = data.projects.map((proj, idx) => `
-      <article class="project-card reveal" id="${proj.id || 'proj-' + idx}">
+      <article class="project-card reveal reveal-tilt" style="--item-idx: ${idx}" id="${proj.id || 'proj-' + idx}">
         <div class="project-image-wrap">
           <img src="${proj.image || 'project1.jpg'}" alt="${proj.title}" loading="lazy" onerror="this.src='project1.jpg'" />
           <div class="project-overlay">
@@ -655,7 +789,7 @@ function renderPortfolioContent(data) {
   const skillsGrid = document.getElementById('skills-grid');
   if (skillsGrid && data.skills && data.skills.length) {
     const categoriesHtml = data.skills.map((cat, i) => `
-      <div class="skill-category reveal" id="skill-cat-${i}">
+      <div class="skill-category reveal ${i % 2 === 0 ? 'reveal-left' : 'reveal-right'}" style="--item-idx: ${i}" id="skill-cat-${i}">
         <div class="skill-category-header">
           <span class="skill-cat-icon">${cat.icon || '⚡'}</span>
           <h3>${cat.category}</h3>
@@ -673,7 +807,7 @@ function renderPortfolioContent(data) {
     `).join('');
 
     const softSkillsHtml = data.softSkills && data.softSkills.length ? `
-      <div class="skill-category reveal" id="skills-soft">
+      <div class="skill-category reveal reveal-left" style="--item-idx: ${(data.skills || []).length}" id="skills-soft">
         <div class="skill-category-header">
           <span class="skill-cat-icon">🎯</span>
           <h3>Core Competencies</h3>
