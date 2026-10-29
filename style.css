@@ -5,11 +5,11 @@
   /* Cyberpunk Color Palette */
   --bg-primary: #060812;
   --bg-secondary: #0b0e1f;
-  --bg-section-main: rgba(6, 8, 18, 0.74);
-  --bg-section-alt: rgba(11, 14, 31, 0.76);
-  --bg-footer-translucent: rgba(11, 14, 31, 0.88);
-  --bg-card: rgba(13, 17, 36, 0.72);
-  --bg-card-hover: rgba(20, 27, 56, 0.85);
+  --bg-section-main: rgba(10, 10, 20, 0.7);
+  --bg-section-alt: rgba(10, 10, 20, 0.7);
+  --bg-footer-translucent: rgba(10, 10, 20, 0.85);
+  --bg-card: rgba(10, 10, 24, 0.65);
+  --bg-card-hover: rgba(18, 20, 45, 0.82);
   --border-color: rgba(0, 245, 255, 0.16);
   --border-glow: rgba(0, 245, 255, 0.45);
 
@@ -48,8 +48,8 @@
   --bg-section-main: hsla(220, 30%, 97%, 0.82);
   --bg-section-alt: hsla(220, 25%, 93%, 0.82);
   --bg-footer-translucent: hsla(220, 25%, 93%, 0.92);
-  --bg-card: hsl(0, 0%, 100%);
-  --bg-card-hover: hsl(220, 20%, 97%);
+  --bg-card: hsla(0, 0%, 100%, 0.78);
+  --bg-card-hover: hsla(220, 20%, 97%, 0.92);
   --border-color: hsl(220, 20%, 87%);
   --border-glow: hsla(262, 83%, 58%, 0.2);
   --text-primary: hsl(222, 30%, 12%);
@@ -67,6 +67,7 @@
 }
 
 html {
+  background-color: var(--bg-primary);
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
   font-size: 16px;
@@ -74,31 +75,32 @@ html {
 
 body {
   font-family: 'Outfit', system-ui, sans-serif;
-  background-color: var(--bg-primary);
-  background-image:
-    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(168, 85, 247, 0.14), transparent),
-    linear-gradient(rgba(0, 245, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.035) 1px, transparent 1px);
-  background-size: 100% 100%, 40px 40px, 40px 40px;
-  background-position: 50% calc(var(--scroll-y, 0px) * -0.06), -1px calc(-1px + var(--scroll-y, 0px) * -0.12), -1px calc(-1px + var(--scroll-y, 0px) * -0.12);
+  background-color: transparent;
   color: var(--text-primary);
   line-height: 1.7;
   overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: color 0.4s ease;
 }
 
 /* ═══════════════════════════════════════════════
-   SCROLL-REACTIVE MULTI-LAYER PARALLAX CANVAS
+   FULL-VIEWPORT THREE.JS 3D PARTICLE GALAXY
 ═══════════════════════════════════════════════ */
-.scroll-reactive-bg-canvas {
+.galaxy-bg-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
+  overflow: hidden;
+}
+
+.galaxy-bg-container canvas {
   display: block;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
 }
 
 img { display: block; width: 100%; height: auto; }
@@ -125,6 +127,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding-block: clamp(5rem, 10vw, 8rem);
   position: relative;
   z-index: 1;
+}
+
+.glass-panel,
+.project-card,
+.skill-category,
+.tools-section,
+.contact-form,
+.contact-detail-item {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .section-header {
@@ -386,17 +398,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background-image: url('hero_bg.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.22;
+  opacity: 0.08;
   z-index: 0;
   transform: scale(1.02);
   transition: transform 0.5s ease-out;
 }
-[data-theme="light"] .hero-bg-image { opacity: 0.05; }
+[data-theme="light"] .hero-bg-image { opacity: 0.03; }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 20%, var(--bg-primary) 92%);
+  background: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 25%, rgba(6, 8, 18, 0.45) 92%);
   z-index: 1;
 }
 

@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Dynamic Scroll-Reactive Multi-Layer Parallax Background Canvas -->
-  <canvas id="scroll-reactive-bg-canvas" class="scroll-reactive-bg-canvas" aria-hidden="true"></canvas>
+  <!-- Full-Page Three.js 3D Particle Galaxy Background -->
+  <div id="galaxy-bg-container" class="galaxy-bg-container" aria-hidden="true"></div>
 
   <!-- Scroll Progress Bar with Glowing Trailing Comet -->
   <div class="scroll-progress-container" aria-hidden="true">
@@ -881,8 +881,10 @@
     </div>
   </div>
 
+  <!-- Three.js 3D Engine & Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="portfolio-data.js"></script>
-  <script src="bg-canvas.js"></script>
+  <script src="galaxy-bg.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
