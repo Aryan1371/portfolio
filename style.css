@@ -5,6 +5,9 @@
   /* Cyberpunk Color Palette */
   --bg-primary: #060812;
   --bg-secondary: #0b0e1f;
+  --bg-section-main: rgba(6, 8, 18, 0.74);
+  --bg-section-alt: rgba(11, 14, 31, 0.76);
+  --bg-footer-translucent: rgba(11, 14, 31, 0.88);
   --bg-card: rgba(13, 17, 36, 0.72);
   --bg-card-hover: rgba(20, 27, 56, 0.85);
   --border-color: rgba(0, 245, 255, 0.16);
@@ -42,6 +45,9 @@
 [data-theme="light"] {
   --bg-primary: hsl(220, 30%, 97%);
   --bg-secondary: hsl(220, 25%, 93%);
+  --bg-section-main: hsla(220, 30%, 97%, 0.82);
+  --bg-section-alt: hsla(220, 25%, 93%, 0.82);
+  --bg-footer-translucent: hsla(220, 25%, 93%, 0.92);
   --bg-card: hsl(0, 0%, 100%);
   --bg-card-hover: hsl(220, 20%, 97%);
   --border-color: hsl(220, 20%, 87%);
@@ -81,6 +87,20 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* ═══════════════════════════════════════════════
+   SCROLL-REACTIVE MULTI-LAYER PARALLAX CANVAS
+═══════════════════════════════════════════════ */
+.scroll-reactive-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  display: block;
+}
+
 img { display: block; width: 100%; height: auto; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
@@ -103,6 +123,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .section {
   padding-block: clamp(5rem, 10vw, 8rem);
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {
@@ -755,8 +777,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ABOUT
 ═══════════════════════════════════════════════ */
 .about {
-  background: var(--bg-secondary);
+  background: var(--bg-section-alt);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: relative;
+  z-index: 1;
 }
 .about::before {
   content: '';
@@ -887,7 +912,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ═══════════════════════════════════════════════
    PROJECTS
 ═══════════════════════════════════════════════ */
-.projects { background: var(--bg-primary); }
+.projects {
+  background: var(--bg-section-main);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+}
 
 .projects-grid {
   display: grid;
@@ -1009,7 +1040,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ═══════════════════════════════════════════════
    SKILLS
 ═══════════════════════════════════════════════ */
-.skills { background: var(--bg-secondary); position: relative; }
+.skills {
+  background: var(--bg-section-alt);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+}
 .skills::before {
   content: '';
   position: absolute;
@@ -1150,7 +1187,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ═══════════════════════════════════════════════
    CONTACT
 ═══════════════════════════════════════════════ */
-.contact { background: var(--bg-primary); }
+.contact {
+  background: var(--bg-section-main);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+}
 
 .contact-grid {
   display: grid;
@@ -1291,7 +1334,11 @@ a.contact-detail-item:hover {
    FOOTER
 ═══════════════════════════════════════════════ */
 .footer {
-  background: var(--bg-secondary);
+  background: var(--bg-footer-translucent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  z-index: 1;
   padding-top: 3.5rem;
   border-top: 1px solid var(--border-color);
 }
