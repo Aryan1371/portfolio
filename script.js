@@ -28,27 +28,62 @@ themeToggle.addEventListener('click', () => {
 });
 
 
-/* ══════════════ NAVBAR SCROLL ══════════════ */
+/* ══════════════ NAVBAR & SCROLL PROGRESS DYNAMICS ══════════════ */
 const navbar = document.getElementById('navbar');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section[id]');
+const progressBar = document.getElementById('scroll-progress-bar');
+const backToTopBtn = document.getElementById('back-to-top');
+
+let lastScrollY = window.scrollY;
+let isScrollTicking = false;
 
 function onScroll() {
-  // Scrolled class
-  navbar.classList.toggle('scrolled', window.scrollY > 30);
+  const currentScrollY = window.scrollY;
+  const isScrollingDown = currentScrollY > lastScrollY;
 
-  // Active nav link
+  // 1. Scroll Progress Bar
+  if (progressBar) {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
+    progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  }
+
+  // 2. Navbar style & auto-hide on scroll down, show on scroll up
+  navbar.classList.toggle('scrolled', currentScrollY > 30);
+  if (isScrollingDown && currentScrollY > 200) {
+    navbar.classList.add('nav-hidden');
+  } else {
+    navbar.classList.remove('nav-hidden');
+  }
+
+  // 3. Back-to-top visibility
+  if (backToTopBtn) {
+    backToTopBtn.style.opacity = currentScrollY > 400 ? '1' : '0';
+    backToTopBtn.style.pointerEvents = currentScrollY > 400 ? 'auto' : 'none';
+  }
+
+  // 4. Active nav link
   let currentSection = '';
   sections.forEach(section => {
-    const top = section.offsetTop - 100;
-    if (window.scrollY >= top) currentSection = section.id;
+    const top = section.offsetTop - 120;
+    if (currentScrollY >= top) currentSection = section.id;
   });
   navLinks.forEach(link => {
     const href = link.getAttribute('href').slice(1);
     link.classList.toggle('active', href === currentSection);
   });
+
+  lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+  isScrollTicking = false;
 }
-window.addEventListener('scroll', onScroll, { passive: true });
+
+window.addEventListener('scroll', () => {
+  if (!isScrollTicking) {
+    window.requestAnimationFrame(onScroll);
+    isScrollTicking = true;
+  }
+}, { passive: true });
 onScroll();
 
 
@@ -84,29 +119,35 @@ document.addEventListener('click', (e) => {
 });
 
 
-/* ══════════════ SCROLL REVEAL ══════════════ */
+/* ══════════════ BIDIRECTIONAL SCROLL REVEAL (UP & DOWN) ══════════════ */
 const revealObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Stagger children in the same parent
-        const siblings = entry.target.parentElement.querySelectorAll('.reveal:not(.visible)');
-        let delay = 0;
-        siblings.forEach(el => {
-          if (el === entry.target || el.getBoundingClientRect().top < window.innerHeight) {
-            setTimeout(() => el.classList.add('visible'), delay);
-            delay += 80;
-          }
-        });
         entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
+        entry.target.classList.remove('hidden-below', 'hidden-above');
+      } else {
+        const rect = entry.boundingClientRect;
+        if (rect.top > window.innerHeight) {
+          entry.target.classList.remove('visible');
+          entry.target.classList.add('hidden-below');
+        } else if (rect.bottom < 0) {
+          entry.target.classList.remove('visible');
+          entry.target.classList.add('hidden-above');
+        }
       }
     });
   },
-  { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
 );
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    el.classList.add('visible');
+  }
+  revealObserver.observe(el);
+});
 
 
 /* ══════════════ SKILL BAR ANIMATION ══════════════ */
@@ -217,7 +258,7 @@ contactForm.addEventListener('submit', async (e) => {
   submitBtn.style.opacity = '';
 
   formSuccess.style.color = 'hsl(142, 71%, 55%)';
-  formSuccess.textContent = '✓ Message sent successfully! I'll get back to you soon.';
+  formSuccess.textContent = "✓ Message sent successfully! I'll get back to you soon.";
   contactForm.reset();
 
   setTimeout(() => (formSuccess.textContent = ''), 6000);
@@ -290,3 +331,16 @@ document.querySelectorAll('.tool-badge').forEach(badge => {
 document.querySelectorAll('.project-card').forEach((card, i) => {
   card.style.transitionDelay = `${i * 0.08}s`;
 });
+
+
+/* ══════════════ HERO 3D CARDS PARALLAX TILT ══════════════ */
+const heroCardsWrapper = document.getElementById('hero-cards-wrapper');
+if (heroCardsWrapper) {
+  document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth < 992) return;
+    const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
+    const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
+    heroCardsWrapper.style.transform = `perspective(1000px) rotateY(${xPct * 6}deg) rotateX(${-yPct * 6}deg)`;
+  }, { passive: true });
+}
+

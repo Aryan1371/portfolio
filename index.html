@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+  </div>
 
   <!-- ═══════════ NAVBAR ═══════════ -->
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
@@ -52,47 +56,120 @@
     <div class="floating-orb orb-2"></div>
     <div class="floating-orb orb-3"></div>
 
-    <div class="hero-animation">
-      <div class="anim-shape"></div>
-      <div class="anim-shape"></div>
-      <div class="anim-shape"></div>
+    <!-- Animated Ambient Shapes -->
+    <div class="hero-animation" aria-hidden="true">
+      <div class="anim-shape shape-1"></div>
+      <div class="anim-shape shape-2"></div>
+      <div class="anim-shape shape-3"></div>
+      <div class="anim-shape shape-4"></div>
     </div>
-    <div class="hero-content">
-      <div class="hero-badge reveal">
-        <span class="badge-dot"></span>
-        Available for freelance work
-      </div>
-      <h1 class="hero-title reveal">
-        Hi, I'm <span class="gradient-text">Alex Rivera</span>
-      </h1>
-      <p class="hero-subtitle reveal">
-        Full-Stack Developer &amp; <span class="typed-text" id="typed-text"></span><span class="cursor-blink">|</span>
-      </p>
-      <p class="hero-description reveal">
-        I craft <strong>beautiful, scalable, and performant</strong> digital experiences —<br />
-        from intuitive UIs to robust back-end systems.
-      </p>
-      <div class="hero-cta reveal">
-        <a href="#projects" class="btn btn-primary btn-lg" id="view-work-btn">
-          <span>View My Work</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#contact" class="btn btn-ghost btn-lg" id="contact-hero-btn">Let's Talk</a>
-      </div>
-      <div class="hero-stats reveal">
-        <div class="stat">
-          <span class="stat-number" data-count="50">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Projects Shipped</span>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span>
+          Available for freelance work
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Years Experience</span>
+        <h1 class="hero-title reveal">
+          Hi, I'm <span class="gradient-text">Alex Rivera</span>
+        </h1>
+        <p class="hero-subtitle reveal">
+          Full-Stack Developer &amp; <span class="typed-text" id="typed-text"></span><span class="cursor-blink">|</span>
+        </p>
+        <p class="hero-description reveal">
+          I craft <strong>beautiful, scalable, and performant</strong> digital experiences —<br />
+          from intuitive UIs to robust back-end systems.
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#projects" class="btn btn-primary btn-lg" id="view-work-btn">
+            <span>View My Work</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost btn-lg" id="contact-hero-btn">Let's Talk</a>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-number" data-count="30">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Happy Clients</span>
+        <div class="hero-stats reveal">
+          <div class="stat">
+            <span class="stat-number" data-count="50">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Projects Shipped</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-count="30">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated Pictures & Interactive Showcase -->
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="hero-cards-wrapper" id="hero-cards-wrapper">
+          <!-- Main Showcase Picture Card -->
+          <div class="hero-pic-card card-primary">
+            <div class="card-bar">
+              <span class="dot d-red"></span>
+              <span class="dot d-yellow"></span>
+              <span class="dot d-green"></span>
+              <span class="card-tab-title">quantum-analytics.live</span>
+            </div>
+            <div class="card-img-wrap">
+              <img src="project1.jpg" alt="Quantum Analytics Live Preview" class="hero-img-main" />
+              <div class="card-badge-floating">
+                <span class="pulse-ring"></span>
+                <span>⚡ Live Production</span>
+              </div>
+            </div>
+            <div class="card-caption">
+              <div class="caption-left">
+                <span class="caption-title">Quantum Analytics</span>
+                <span class="caption-sub">SaaS Dashboard &amp; Visuals</span>
+              </div>
+              <span class="caption-tag">React • D3</span>
+            </div>
+          </div>
+
+          <!-- Secondary Floating Picture Card -->
+          <div class="hero-pic-card card-secondary">
+            <div class="sec-img-wrap">
+              <img src="project3.jpg" alt="Synapse AI Interface" class="hero-img-sec" />
+            </div>
+            <div class="sec-content">
+              <span class="sec-tag">AI Application</span>
+              <span class="sec-title">Synapse Neuro-Chat</span>
+            </div>
+          </div>
+
+          <!-- Floating Code Widget -->
+          <div class="hero-floating-code">
+            <div class="code-header">
+              <span class="code-lang">TS</span>
+              <span>Developer.ts</span>
+            </div>
+            <div class="code-lines">
+              <span class="line"><span class="c-purple">const</span> dev = {</span>
+              <span class="line">&nbsp;&nbsp;role: <span class="c-green">'Full-Stack Architect'</span>,</span>
+              <span class="line">&nbsp;&nbsp;status: <span class="c-cyan">'⚡ Ready to Build'</span></span>
+              <span class="line">};</span>
+            </div>
+          </div>
+
+          <!-- Floating Tech Tags Orbit -->
+          <div class="hero-float-badge float-badge-1">
+            <span class="badge-icon">⚛️</span>
+            <span>React</span>
+          </div>
+          <div class="hero-float-badge float-badge-2">
+            <span class="badge-icon">🔷</span>
+            <span>TypeScript</span>
+          </div>
+          <div class="hero-float-badge float-badge-3">
+            <span class="badge-icon">⚡</span>
+            <span>Next.js</span>
+          </div>
         </div>
       </div>
     </div>
