@@ -66,19 +66,19 @@
 
     <div class="hero-container">
       <div class="hero-content">
-        <div class="hero-badge reveal">
+        <div class="hero-badge reveal" id="hero-badge-wrap">
           <span class="badge-dot"></span>
-          Available for freelance work
+          <span id="hero-badge-text">Available for freelance work</span>
         </div>
         <h1 class="hero-title reveal">
-          Hi, I'm <span class="gradient-text">Alex Rivera</span>
+          Hi, I'm <span class="gradient-text" id="hero-name">Alex Rivera</span>
         </h1>
         <p class="hero-subtitle reveal">
-          Full-Stack Developer &amp; <span class="typed-text" id="typed-text"></span><span class="cursor-blink">|</span>
+          <span id="hero-role-prefix">Full-Stack Architect &amp;</span> <span class="typed-text" id="typed-text"></span><span class="cursor-blink">|</span>
         </p>
-        <p class="hero-description reveal">
-          I craft <strong>beautiful, scalable, and performant</strong> digital experiences —<br />
-          from intuitive UIs to robust back-end systems.
+        <p class="hero-description reveal" id="hero-tagline">
+          I craft <strong>beautiful, scalable, and futuristic</strong> digital experiences —<br />
+          from cutting-edge neural UIs to hyper-scalable back-end systems.
         </p>
         <div class="hero-cta reveal">
           <a href="#projects" class="btn btn-primary btn-lg" id="view-work-btn">
@@ -89,86 +89,61 @@
         </div>
         <div class="hero-stats reveal">
           <div class="stat">
-            <span class="stat-number" data-count="50">0</span><span class="stat-plus">+</span>
+            <span class="stat-number" id="stat-projects" data-count="50">50</span><span class="stat-plus">+</span>
             <span class="stat-label">Projects Shipped</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat">
-            <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+            <span class="stat-number" id="stat-experience" data-count="5">5</span><span class="stat-plus">+</span>
             <span class="stat-label">Years Experience</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat">
-            <span class="stat-number" data-count="30">0</span><span class="stat-plus">+</span>
+            <span class="stat-number" id="stat-clients" data-count="30">30</span><span class="stat-plus">+</span>
             <span class="stat-label">Happy Clients</span>
           </div>
         </div>
       </div>
 
-      <!-- Animated Pictures & Interactive Showcase -->
-      <div class="hero-visual reveal" aria-hidden="true">
-        <div class="hero-cards-wrapper" id="hero-cards-wrapper">
-          <!-- Main Showcase Picture Card -->
-          <div class="hero-pic-card card-primary">
-            <div class="card-bar">
-              <span class="dot d-red"></span>
-              <span class="dot d-yellow"></span>
-              <span class="dot d-green"></span>
-              <span class="card-tab-title">quantum-analytics.live</span>
+      <!-- 3D Interactive Cyber-Hologram Canvas Visual -->
+      <div class="hero-visual reveal" aria-label="Interactive 3D Cyber Hologram">
+        <div class="hero-canvas-container" id="hero-canvas-container">
+          <!-- Cyberpunk HUD Header -->
+          <div class="canvas-hud-bar">
+            <div class="hud-left">
+              <span class="hud-status-dot"></span>
+              <span class="hud-label">NEURAL MATRIX 3D // V3.8-QUANTUM</span>
             </div>
-            <div class="card-img-wrap">
-              <img src="project1.jpg" alt="Quantum Analytics Live Preview" class="hero-img-main" />
-              <div class="card-badge-floating">
-                <span class="pulse-ring"></span>
-                <span>⚡ Live Production</span>
-              </div>
-            </div>
-            <div class="card-caption">
-              <div class="caption-left">
-                <span class="caption-title">Quantum Analytics</span>
-                <span class="caption-sub">SaaS Dashboard &amp; Visuals</span>
-              </div>
-              <span class="caption-tag">React • D3</span>
+            <div class="hud-right">
+              <span class="hud-mode" id="canvas-hud-mode">SYS: ONLINE</span>
+              <span class="hud-fps" id="canvas-fps">60 FPS</span>
             </div>
           </div>
 
-          <!-- Secondary Floating Picture Card -->
-          <div class="hero-pic-card card-secondary">
-            <div class="sec-img-wrap">
-              <img src="project3.jpg" alt="Synapse AI Interface" class="hero-img-sec" />
-            </div>
-            <div class="sec-content">
-              <span class="sec-tag">AI Application</span>
-              <span class="sec-title">Synapse Neuro-Chat</span>
-            </div>
+          <!-- Interactive 3D Canvas -->
+          <div class="canvas-viewport-wrap">
+            <canvas id="hero-3d-canvas" class="hero-3d-canvas" width="500" height="420" aria-label="Interactive 3D particle sphere and cyber rings"></canvas>
+            <div class="canvas-scanline" aria-hidden="true"></div>
           </div>
 
-          <!-- Floating Code Widget -->
-          <div class="hero-floating-code">
-            <div class="code-header">
-              <span class="code-lang">TS</span>
-              <span>Developer.ts</span>
-            </div>
-            <div class="code-lines">
-              <span class="line"><span class="c-purple">const</span> dev = {</span>
-              <span class="line">&nbsp;&nbsp;role: <span class="c-green">'Full-Stack Architect'</span>,</span>
-              <span class="line">&nbsp;&nbsp;status: <span class="c-cyan">'⚡ Ready to Build'</span></span>
-              <span class="line">};</span>
-            </div>
+          <!-- Interactive Hint / Click to Scatter Pill -->
+          <div class="canvas-interactive-hint">
+            <span class="hint-icon">✦</span>
+            <span>Hover to rotate • Click to scatter particles</span>
           </div>
 
-          <!-- Floating Tech Tags Orbit -->
+          <!-- Floating Cyber Data Nodes -->
           <div class="hero-float-badge float-badge-1">
             <span class="badge-icon">⚛️</span>
-            <span>React</span>
+            <span>Neural Core</span>
           </div>
           <div class="hero-float-badge float-badge-2">
             <span class="badge-icon">🔷</span>
-            <span>TypeScript</span>
+            <span>Zero Latency</span>
           </div>
           <div class="hero-float-badge float-badge-3">
             <span class="badge-icon">⚡</span>
-            <span>Next.js</span>
+            <span>Cyber-Architecture</span>
           </div>
         </div>
       </div>
@@ -194,28 +169,28 @@
         <div class="about-image-wrapper reveal">
           <div class="about-image-frame">
             <div class="about-avatar">
-              <div class="avatar-initials">AR</div>
+              <div class="avatar-initials" id="about-avatar-initials">AR</div>
               <div class="avatar-glow"></div>
             </div>
             <div class="experience-badge">
-              <span class="exp-number">5+</span>
+              <span class="exp-number" id="about-exp-badge">5+</span>
               <span class="exp-text">Years of<br/>Experience</span>
             </div>
           </div>
         </div>
 
         <div class="about-content reveal">
-          <p class="about-intro">
+          <p class="about-intro" id="about-intro">
             I'm a passionate <strong>Full-Stack Developer</strong> based in San Francisco, CA, with a love for turning complex problems into elegant, user-friendly solutions.
           </p>
-          <p class="about-text">
+          <p class="about-text" id="about-bio-1">
             With over 5 years of professional experience, I've architected and shipped production-ready applications for startups and enterprise companies alike. I thrive at the intersection of <em>design and engineering</em>, believing that great software must be both beautiful and technically sound.
           </p>
-          <p class="about-text">
+          <p class="about-text" id="about-bio-2">
             When I'm not coding, you'll find me contributing to open-source projects, exploring the latest in AI/ML, or hiking trails in Northern California.
           </p>
 
-          <div class="about-highlights">
+          <div class="about-highlights" id="about-highlights">
             <div class="highlight-item">
               <span class="highlight-icon">🎯</span>
               <div>
@@ -478,7 +453,7 @@
               </span>
               <div>
                 <span class="contact-detail-label">Email</span>
-                <span class="contact-detail-value">a1371rya@gmail.com</span>
+                <span class="contact-detail-value" id="contact-email-val">a1371rya@gmail.com</span>
               </div>
             </a>
             <div class="contact-detail-item">
@@ -487,7 +462,16 @@
               </span>
               <div>
                 <span class="contact-detail-label">Location</span>
-                <span class="contact-detail-value">San Francisco, CA</span>
+                <span class="contact-detail-value" id="contact-location-val">San Francisco, CA</span>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <div>
+                <span class="contact-detail-label">Status</span>
+                <span class="contact-detail-value" id="contact-status-val">Available for freelance</span>
               </div>
             </div>
           </div>
@@ -588,6 +572,237 @@
     </div>
   </footer>
 
+  <!-- Floating Owner Admin Mode Trigger Button -->
+  <button id="admin-toggle-btn" class="admin-float-btn" title="Owner Admin Mode (Ctrl + Shift + A)" aria-label="Toggle Owner Admin Panel">
+    <span class="admin-btn-pulse"></span>
+    <span class="admin-btn-icon">⚡</span>
+    <span class="admin-btn-label">OWNER ADMIN</span>
+  </button>
+
+  <!-- ═══════════ OWNER ADMIN MODAL (LIVE CMS) ═══════════ -->
+  <div id="admin-modal" class="admin-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+    <div class="admin-backdrop" id="admin-backdrop"></div>
+    <div class="admin-drawer">
+      <!-- Admin Header -->
+      <div class="admin-header">
+        <div class="admin-title-area">
+          <span class="cyber-badge">ROOT_ACCESS // LIVE CMS</span>
+          <h2 id="admin-title" class="admin-title">Owner Admin Dashboard</h2>
+          <p class="admin-subtitle">Modify content dynamically. Real-time updates with localStorage persistence.</p>
+        </div>
+        <div class="admin-header-actions">
+          <button id="admin-close-btn" class="admin-icon-btn" aria-label="Close admin modal">✕</button>
+        </div>
+      </div>
+
+      <!-- Admin Tab Nav -->
+      <nav class="admin-tabs" role="tablist">
+        <button class="admin-tab active" data-tab="tab-hero" role="tab" aria-selected="true">⚡ Hero &amp; Profile</button>
+        <button class="admin-tab" data-tab="tab-about" role="tab" aria-selected="false">👤 About Me</button>
+        <button class="admin-tab" data-tab="tab-skills" role="tab" aria-selected="false">🛠️ Skills Manager</button>
+        <button class="admin-tab" data-tab="tab-projects" role="tab" aria-selected="false">🚀 Projects Manager</button>
+        <button class="admin-tab" data-tab="tab-contact" role="tab" aria-selected="false">📬 Contact &amp; Social</button>
+        <button class="admin-tab" data-tab="tab-backup" role="tab" aria-selected="false">💾 Backup &amp; Reset</button>
+      </nav>
+
+      <!-- Admin Content Panels -->
+      <div class="admin-body">
+        <!-- 1. Hero & Profile -->
+        <div class="admin-panel active" id="tab-hero" role="tabpanel">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="edit-name">Full Name</label>
+              <input type="text" id="edit-name" class="form-input" placeholder="e.g. Alex Rivera" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-role">Role Title</label>
+              <input type="text" id="edit-role" class="form-input" placeholder="e.g. Full-Stack Architect" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-badge">Hero Availability Badge</label>
+            <input type="text" id="edit-badge" class="form-input" placeholder="e.g. Available for freelance work" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-typed">Dynamic Rotating Words (Comma separated)</label>
+            <input type="text" id="edit-typed" class="form-input" placeholder="Full-Stack Developer, Cyberpunk UI Architect, AI Engineer" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-tagline">Hero Description Tagline</label>
+            <textarea id="edit-tagline" class="form-input" rows="3" placeholder="Hero intro paragraph..."></textarea>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label" for="edit-stat-projects">Projects Shipped</label>
+              <input type="number" id="edit-stat-projects" class="form-input" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-stat-experience">Years Experience</label>
+              <input type="number" id="edit-stat-experience" class="form-input" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-stat-clients">Happy Clients</label>
+              <input type="number" id="edit-stat-clients" class="form-input" min="0" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. About Me -->
+        <div class="admin-panel" id="tab-about" role="tabpanel">
+          <div class="form-group">
+            <label class="form-label" for="edit-about-intro">About Intro Paragraph</label>
+            <textarea id="edit-about-intro" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-about-bio1">Bio Section 1</label>
+            <textarea id="edit-about-bio1" class="form-input" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-about-bio2">Bio Section 2</label>
+            <textarea id="edit-about-bio2" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- 3. Skills Manager -->
+        <div class="admin-panel" id="tab-skills" role="tabpanel">
+          <div class="admin-subheading">
+            <h3>Add New Skill</h3>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label" for="new-skill-cat">Category</label>
+              <select id="new-skill-cat" class="form-input">
+                <option value="Frontend &amp; UI">Frontend &amp; UI</option>
+                <option value="Backend &amp; Systems">Backend &amp; Systems</option>
+                <option value="DevOps &amp; Cloud">DevOps &amp; Cloud</option>
+                <option value="AI &amp; Modern Tech">AI &amp; Modern Tech</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-skill-name">Skill Name</label>
+              <input type="text" id="new-skill-name" class="form-input" placeholder="e.g. SvelteKit" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-skill-level">Proficiency (<span id="skill-level-val">90%</span>)</label>
+              <div class="slider-wrap">
+                <input type="range" id="new-skill-level" min="10" max="100" value="90" class="form-range" />
+                <button type="button" id="add-skill-btn" class="btn btn-primary btn-sm">Add Skill</button>
+              </div>
+            </div>
+          </div>
+          <div class="admin-subheading">
+            <h3>Current Skills</h3>
+          </div>
+          <div id="admin-skills-list" class="admin-items-list"></div>
+        </div>
+
+        <!-- 4. Projects Manager -->
+        <div class="admin-panel" id="tab-projects" role="tabpanel">
+          <div class="admin-subheading">
+            <h3>Add New Project Card</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="new-proj-title">Project Title</label>
+              <input type="text" id="new-proj-title" class="form-input" placeholder="e.g. Neural Nexus" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-proj-tags">Tags (Comma-separated)</label>
+              <input type="text" id="new-proj-tags" class="form-input" placeholder="React, Node.js, WebGL" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-proj-desc">Description</label>
+            <textarea id="new-proj-desc" class="form-input" rows="2" placeholder="Brief project summary..."></textarea>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label" for="new-proj-img">Image URL / File</label>
+              <input type="text" id="new-proj-img" class="form-input" placeholder="project1.jpg or https://..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-proj-demo">Demo URL</label>
+              <input type="text" id="new-proj-demo" class="form-input" placeholder="https://..." value="#" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-proj-code">Code URL</label>
+              <div class="slider-wrap">
+                <input type="text" id="new-proj-code" class="form-input" placeholder="https://github.com/..." value="#" />
+                <button type="button" id="add-proj-btn" class="btn btn-primary btn-sm">Add Project</button>
+              </div>
+            </div>
+          </div>
+          <div class="admin-subheading">
+            <h3>Current Projects</h3>
+          </div>
+          <div id="admin-projects-list" class="admin-items-list"></div>
+        </div>
+
+        <!-- 5. Contact & Social -->
+        <div class="admin-panel" id="tab-contact" role="tabpanel">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="edit-email">Contact Email</label>
+              <input type="email" id="edit-email" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-location">Location / Timezone</label>
+              <input type="text" id="edit-location" class="form-input" />
+            </div>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label" for="edit-github">GitHub Profile URL</label>
+              <input type="text" id="edit-github" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-linkedin">LinkedIn Profile URL</label>
+              <input type="text" id="edit-linkedin" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-twitter">Twitter / X Profile URL</label>
+              <input type="text" id="edit-twitter" class="form-input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Backup & Reset -->
+        <div class="admin-panel" id="tab-backup" role="tabpanel">
+          <div class="backup-grid">
+            <div class="backup-card">
+              <h4>Export Data</h4>
+              <p>Download your complete portfolio configuration as a portable JSON file.</p>
+              <button type="button" id="export-json-btn" class="btn btn-ghost btn-sm">📥 Export portfolioData.json</button>
+            </div>
+            <div class="backup-card">
+              <h4>Import Data</h4>
+              <p>Restore your portfolio from a saved JSON configuration backup.</p>
+              <input type="file" id="import-json-file" accept=".json" style="display:none;" />
+              <button type="button" id="import-json-btn" class="btn btn-ghost btn-sm">📤 Import JSON File</button>
+            </div>
+            <div class="backup-card danger-card">
+              <h4>Factory Reset</h4>
+              <p>Discard all custom edits and restore the default cyberpunk portfolio state.</p>
+              <button type="button" id="reset-default-btn" class="btn btn-ghost btn-sm danger-btn">🔄 Reset to Defaults</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Footer Actions -->
+      <div class="admin-footer">
+        <div class="admin-footer-status">
+          <span id="admin-status-msg" class="admin-status-msg"></span>
+        </div>
+        <div class="admin-footer-btns">
+          <button type="button" id="admin-cancel-btn" class="btn btn-ghost btn-sm">Close</button>
+          <button type="button" id="admin-save-btn" class="btn btn-primary btn-sm">💾 Save &amp; Apply Live</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="portfolio-data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
