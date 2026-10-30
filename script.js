@@ -311,6 +311,28 @@ function setupScrollReveal() {
 
 setupScrollReveal();
 
+/* ═══════════════════════════════════════════════
+   4b. ABOUT SECTION CYBER GLITCH ENTRANCE TRIGGER
+═══════════════════════════════════════════════ */
+(function setupAboutGlitchEntrance() {
+  const aboutSection = document.getElementById('about');
+  if (!aboutSection) return;
+
+  let hasEntered = false;
+  const aboutObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasEntered) {
+          hasEntered = true;
+          aboutSection.classList.add('section-entered');
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  aboutObserver.observe(aboutSection);
+})();
+
 
 /* ═══════════════════════════════════════════════
    5. SKILL BAR & COUNTER OBSERVERS
